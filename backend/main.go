@@ -83,12 +83,15 @@ func handle(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(output)
 }
 
-func main() {
-	creat_pool()
-	defer pool.Shutdown(context.Background())
 
-	http.HandleFunc("/scan", handle)
-
-	log.Println("Go server running on 0.0.0.0:8080")
-	log.Fatal(http.ListenAndServe("0.0.0.0:8080", nil))
+    func main() {
+    port := os.Getenv("PORT")
+    if port == "" {
+        port = "8080"
+    }
+    initPool()
+    defer pool.Shutdown(context.Background())
+    http.HandleFunc("/scan", handle)
+    log.Println("Go server running on 0.0.0.0:" + port)
+    log.Fatal(http.ListenAndServe("0.0.0.0:"+port, nil))
 }
