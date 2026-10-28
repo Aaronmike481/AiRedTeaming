@@ -23,7 +23,7 @@ func creat_pool() {
 		WorkerConfig: pyproc.WorkerConfig{
 			SocketPath:   "/tmp/worker.sock",
 			PythonExec:   "python3",
-			WorkerScript: "worker.py",
+			WorkerScript: "./python-worker/worker.py",
 			StartTimeout: 30 * time.Second,
 		},
 	}, nil)
